@@ -1,6 +1,7 @@
 package controller
 
 import (
+	cache "main/chatbot/cache"
 	service "main/chatbot/services"
 	"main/chatbot/structures"
 
@@ -9,11 +10,13 @@ import (
 
 type ChatController struct {
 	messageService *service.MessageService
+	cache          *cache.Cache
 }
 
-func NewChatController(messageService *service.MessageService) *ChatController {
+func NewChatController(messageService *service.MessageService, cache *cache.Cache) *ChatController {
 	return &ChatController{
 		messageService: messageService,
+		cache:          cache,
 	}
 }
 
@@ -24,8 +27,7 @@ func (c *ChatController) ApiMessage(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&req); err != nil {
 		return err
 	}
-
-	response := c.messageService.GetChatResponse(req.Message)
+	response := c.messageService.GetChatResponse(req.Message, c.cache)
 
 	return ctx.JSON(fiber.Map{"response": response})
 }

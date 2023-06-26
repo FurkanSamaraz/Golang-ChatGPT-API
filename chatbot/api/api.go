@@ -6,10 +6,7 @@ import (
 	"fmt"
 	"main/chatbot/structures"
 	"net/http"
-)
-
-const (
-	completionURL = "https://api.openai.com/v1/chat/completions"
+	"os"
 )
 
 type OpenAIAPI struct {
@@ -37,7 +34,9 @@ func (a *OpenAIAPI) SendCompletionRequest(userInput string) (*structures.APIResp
 	}
 
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", completionURL, bytes.NewBuffer(requestBody))
+
+	completion_url := os.Getenv("COMPLETION_URL")
+	req, err := http.NewRequest("POST", completion_url, bytes.NewBuffer(requestBody))
 	if err != nil {
 		return nil, err
 	}

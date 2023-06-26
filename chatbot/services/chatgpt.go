@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"main/chatbot/api"
+	cache "main/chatbot/cache"
 )
 
 type MessageService struct {
@@ -16,16 +17,24 @@ func NewMessageService(apiClient *api.OpenAIAPI) *MessageService {
 }
 
 // GetChatResponse, ChatGPT'den bir yanıt almak için API isteği yapar
-func (s *MessageService) GetChatResponse(message string) string {
+func (s *MessageService) GetChatResponse(message string, cache *cache.Cache) string {
+	// Önbellekte yanıtı ara
+	cachedResponse := cache.Get(message)
+	if cachedResponse != "" {
+		return cachedResponse
+	}
+
 	response, err := s.apiClient.SendCompletionRequest(message)
 	if err != nil {
-
 		fmt.Println("API Error:", err)
 		return "Error: " + err.Error()
 	}
 
 	if len(response.Choices) > 0 {
-		return response.Choices[0].Message.Content
+		result := response.Choices[0].Message.Content
+		// Yanıtı önbelleğe al
+		cache.Set(message, result)
+		return result
 	}
 
 	return "Error: No response"
