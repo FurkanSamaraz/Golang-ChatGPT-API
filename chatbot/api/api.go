@@ -23,9 +23,15 @@ func NewOpenAIAPI(apiKey, model string) *OpenAIAPI {
 
 func (a *OpenAIAPI) SendCompletionRequest(userInput string) (*structures.APIResponse, error) {
 
+	conversation := []map[string]interface{}{
+		{"role": "system", "content": "You are a helpful assistant that generates questions."},
+	}
+	conversation = append(conversation, map[string]interface{}{"role": "user", "content": userInput})
+	conversation = append(conversation, map[string]interface{}{"role": "system", "content": "Generate 5 questions based on the articles."})
+
 	data := map[string]interface{}{
 		"model":    a.model,
-		"messages": []interface{}{map[string]interface{}{"role": "system", "content": "You are a helpful assistant."}, map[string]interface{}{"role": "user", "content": userInput}},
+		"messages": conversation,
 	}
 
 	requestBody, err := json.Marshal(data)
