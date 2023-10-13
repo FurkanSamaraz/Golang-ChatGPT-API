@@ -1,12 +1,12 @@
 package main
 
 import (
+	"chat-bot/api"
+	cache "chat-bot/cache"
+	controller "chat-bot/controllers"
+	"chat-bot/server"
+	service "chat-bot/services"
 	"log"
-	"main/chatbot/api"
-	cache "main/chatbot/cache"
-	controller "main/chatbot/controllers"
-	"main/chatbot/server"
-	service "main/chatbot/services"
 	"os"
 
 	"github.com/gofiber/fiber/v2"

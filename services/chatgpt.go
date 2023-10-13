@@ -1,9 +1,9 @@
 package service
 
 import (
+	"chat-bot/api"
+	cache "chat-bot/cache"
 	"fmt"
-	"main/chatbot/api"
-	cache "main/chatbot/cache"
 )
 
 type MessageService struct {

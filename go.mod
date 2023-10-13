@@ -1,4 +1,4 @@
-module main
+module chat-bot
 
 go 1.20
 

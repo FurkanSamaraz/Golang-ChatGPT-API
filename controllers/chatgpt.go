@@ -1,9 +1,9 @@
 package controller
 
 import (
-	cache "main/chatbot/cache"
-	service "main/chatbot/services"
-	"main/chatbot/structures"
+	cache "chat-bot/cache"
+	service "chat-bot/services"
+	"chat-bot/structures"
 
 	"github.com/gofiber/fiber/v2"
 )

@@ -2,9 +2,9 @@ package api
 
 import (
 	"bytes"
+	"chat-bot/structures"
 	"encoding/json"
 	"fmt"
-	"main/chatbot/structures"
 	"net/http"
 	"os"
 )

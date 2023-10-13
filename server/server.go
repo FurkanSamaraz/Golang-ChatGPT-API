@@ -1,7 +1,7 @@
 package server
 
 import (
-	controller "main/chatbot/controllers"
+	controller "chat-bot/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
